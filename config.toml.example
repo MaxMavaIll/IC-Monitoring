@@ -1,0 +1,17 @@
+
+time_check = 10
+
+######################
+#      Logging
+######################
+[logging]
+max_log_size = 20
+backup_count = 3
+
+
+######################
+#     Telegram Bot
+######################
+[tg_bot]
+TOKEN = ''
+admins = []

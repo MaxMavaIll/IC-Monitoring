@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  ic_monitoring:
+    image: ic-monitoring_ic_monitoring
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ic_mon
+    command: ["python", "main.py"]
