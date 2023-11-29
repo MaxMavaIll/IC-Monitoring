@@ -31,7 +31,7 @@ log.addHandler(log_s)
 log.addHandler(log_f)
 
 
-def Get_nodes(log_id: int):
+def Get_nodes(log_id: int) -> dict:
     log.info("Get nodes data")
 
     url = f'https://ic-api.internetcomputer.org/api/v3/nodes'
@@ -52,8 +52,16 @@ def Get_nodes(log_id: int):
         log.error(response.text)
         log.debug(f"ID: {log_id} -> url: {url}")
 
+def add_config_nodeId_to_setting(settings: dict):
+    for node_id in config_toml['node_ids']:
+        if node_id not in settings:
+            settings[node_id] = {}
 
-def Check_status_node(log_id: int, data: dict, settings: dict):
+def Check_status_node(log_id: int, 
+        data: dict,
+        settings: dict) -> None:
+    
+    add_config_nodeId_to_setting(settings=settings)
 
     for node in data['nodes']:
         node_id = node['node_id']
