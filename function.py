@@ -60,6 +60,9 @@ def Check_status_node(log_id: int, data: dict, settings: dict):
         status = node['status']
 
         if node_id in settings:
+            if settings[node_id] == {}:
+                settings[node_id]['status'] = ""
+
             if status != settings[node_id]['status']:
                 message = (f"Node ID: <code>{node_id}</code>\n"
                     f"I get status: <code>{status}</code>")
