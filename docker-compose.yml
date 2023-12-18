@@ -7,6 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: ic_mon
+    restart: unless-stopped
     volumes:
       - ./settings.json:/app/settings.json
       - ./config.toml:/app/config.toml

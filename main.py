@@ -6,7 +6,9 @@ from logging.handlers import RotatingFileHandler
 
 from function import Get_nodes
 from function import Check_status_node
+from function import runtime_check
 from WorkWithJson import WorkWithJson
+from TelegramBot.send_message import send_message
 
 config_toml = toml.load('config.toml')
 setting = WorkWithJson('settings.json')
@@ -42,6 +44,9 @@ def main():
         Check_status_node(log_id=settings['id'], data=answer, settings=settings['id_nodes'])
         
         setting.set_json(settings)
+
+        if config_toml['tg_bot']['lighthouse']['enable'] and runtime_check(config_toml['tg_bot']['lighthouse']['time']):
+            send_message(log_id=settings['id'], message=config_toml['tg_bot']['lighthouse']['message'])
         
         log.info(f"Wait {config_toml['time_check']} min")
         time.sleep(config_toml['time_check'] * 60)

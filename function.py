@@ -2,6 +2,7 @@ import time
 import logging
 import toml
 import requests
+import datetime
 
 from logging.handlers import RotatingFileHandler
 
@@ -30,6 +31,24 @@ log_f.setFormatter(formatter2)
 log.addHandler(log_s)
 log.addHandler(log_f)
 
+def runtime_check(times: str) -> bool:
+    time_now = datetime.datetime.now().utcnow().time()
+    log.info(f"Get {times} now time {time_now}")
+
+    if times == '':
+        return True
+    
+    elif times != '':
+        
+        for time in times.split(','):
+            log.debug(f"ID: {id} -> {datetime.timedelta()} <= {datetime.timedelta(hours=time_now.hour, minutes=time_now.minute) - datetime.timedelta(hours=int(time))} <= {datetime.timedelta(minutes=config_toml['time_check'])}")
+            
+            if datetime.timedelta() <= datetime.timedelta(hours=time_now.hour, minutes=time_now.minute) - datetime.timedelta(hours=int(time))  <= datetime.timedelta(minutes=config_toml['time_check']):
+                log.info(f"Get True")
+                return True
+    
+    log.info(f"Get False")
+    return False
 
 def Get_nodes(log_id: int) -> dict:
     log.info("Get nodes data")

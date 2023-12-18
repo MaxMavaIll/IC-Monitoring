@@ -22,3 +22,9 @@ backup_count = 3
 [tg_bot]
 TOKEN = ''
 admins = []
+
+[tg_bot.lighthouse]
+enable = false
+message = "Status: Active 🟢"
+
+time = '15'
