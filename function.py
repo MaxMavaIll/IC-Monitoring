@@ -41,9 +41,14 @@ def runtime_check(times: str) -> bool:
     elif times != '':
         
         for time in times.split(','):
-            log.debug(f"ID: {id} -> {datetime.timedelta()} <= {datetime.timedelta(hours=time_now.hour, minutes=time_now.minute) - datetime.timedelta(hours=int(time))} <= {datetime.timedelta(minutes=config_toml['time_check'])}")
+            time = time.split(":")
             
-            if datetime.timedelta() <= datetime.timedelta(hours=time_now.hour, minutes=time_now.minute) - datetime.timedelta(hours=int(time))  <= datetime.timedelta(minutes=config_toml['time_check']):
+            if len(time) != 2:
+                time.append(0)
+                
+            log.info(f"{datetime.timedelta()} <= {datetime.timedelta(hours=time_now.hour, minutes=time_now.minute) - datetime.timedelta(hours=int(time[0]), minutes=int(time[1]))} < {datetime.timedelta(minutes=config_toml['time_check'])}")
+            
+            if datetime.timedelta() <= datetime.timedelta(hours=time_now.hour, minutes=time_now.minute) - datetime.timedelta(hours=int(time[0]), minutes=int(time[1]))  < datetime.timedelta(minutes=config_toml['time_check']):
                 log.info(f"Get True")
                 return True
     
