@@ -46,8 +46,8 @@ def main():
         setting.set_json(settings)
 
         if config_toml['tg_bot']['lighthouse']['enable'] and runtime_check(config_toml['tg_bot']['lighthouse']['time']):
-            # send_message(log_id=settings['id'], message=config_toml['tg_bot']['lighthouse']['message'])
-            log.info("NODE IS GOOD")
+            send_message(log_id=settings['id'], message=config_toml['tg_bot']['lighthouse']['message'])
+            
         log.info(f"Wait {config_toml['time_check']} min")
         time.sleep(config_toml['time_check'] * 60)
 
