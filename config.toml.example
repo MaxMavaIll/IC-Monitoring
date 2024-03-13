@@ -4,9 +4,8 @@ time_check = 10
 node_ids = []
 
 #Exemple
-#node_ids = [
-#    "74qsa-j6jno-nmxmb-7jpf5-u6nig-g7hgo-thvjm-6f6zu-c2ugp-krple-qae"
-#]
+#[node_ids]
+#1 = "74qsa-j6jno-nmxmb-7jpf5-u6nig-g7hgo-thvjm-6f6zu-c2ugp-krple-qae"
 
 ######################
 #      Logging
