@@ -77,10 +77,11 @@ def Get_nodes(log_id: int) -> dict:
         log.debug(f"ID: {log_id} -> url: {url}")
 
 def add_config_nodeId_to_setting(settings: dict) -> None:
+    
+    log.info(f"# ======= Check status node_id ======= #")
     for number_node in config_toml['node_ids']:
         node_id = config_toml['node_ids'][number_node]
 
-        log.info(f"# ======= Check status node_id ======= #")
         log.info(f"{number_node}. {node_id}")
         if node_id not in settings:
             settings[node_id] = {}
