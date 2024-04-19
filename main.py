@@ -2,7 +2,7 @@ import time
 import logging
 import toml
 
-from logging.handlers import RotatingFileHandler
+from logging.handlers import TimedRotatingFileHandler
 
 from function import Get_nodes
 from function import Check_status_node
@@ -17,22 +17,22 @@ setting = WorkWithJson('settings.json')
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
+# Handler for console output
 log_s = logging.StreamHandler()
 log_s.setLevel(logging.INFO)
-formatter2 = logging.Formatter(
-    "%(name)s %(asctime)s %(levelname)s %(message)s")
-log_s.setFormatter(formatter2)
-
-log_f = RotatingFileHandler(
-    f"logs/main.log",
-    maxBytes=config_toml['logging']['max_log_size'] * 1024 * 1024, 
-    backupCount=config_toml['logging']['backup_count'])
-log_f.setLevel(logging.DEBUG)
-formatter2 = logging.Formatter(
-    "%(name)s %(asctime)s %(levelname)s %(message)s")
-log_f.setFormatter(formatter2)
-
+formatter = logging.Formatter("%(name)s %(asctime)s %(levelname)s %(message)s")
+log_s.setFormatter(formatter)
 log.addHandler(log_s)
+
+# Handler for file output that rotates daily
+log_f = TimedRotatingFileHandler(
+    "logs/main.log", 
+    when="D",        # Rotate daily
+    interval=1,      # Every 1 day
+    backupCount=config_toml['logging']['backup_count_last_day']    # Keep logs for 7 days
+)
+log_f.setLevel(logging.DEBUG)
+log_f.setFormatter(formatter)
 log.addHandler(log_f)
 
 
