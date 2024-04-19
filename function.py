@@ -22,7 +22,7 @@ log.addHandler(log_s)
 
 # Handler for file output that rotates daily
 log_f = TimedRotatingFileHandler(
-    "logs/main.log", 
+    "logs/function.log", 
     when="D",        # Rotate daily
     interval=1,      # Every 1 day
     backupCount=config_toml['logging']['backup_count_last_day']    # Keep logs for 7 days
