@@ -41,13 +41,14 @@ def main():
         settings = setting.get_json()
         answer = Get_nodes(log_id=settings['id'])
 
-        Check_status_node(log_id=settings['id'], data=answer, settings=settings['id_nodes'])
+        Check_status_node(log_id=settings['id'], data=answer)
         
-        setting.set_json(settings)
 
         if config_toml['tg_bot']['lighthouse']['enable'] and runtime_check(config_toml['tg_bot']['lighthouse']['time']):
             send_message(log_id=settings['id'], message=config_toml['tg_bot']['lighthouse']['message'])
             
+        settings['id'] += 1
+        setting.set_json(settings)
         log.info(f"Wait {config_toml['time_check']} min")
         time.sleep(config_toml['time_check'] * 60)
 

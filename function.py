@@ -88,23 +88,24 @@ def add_config_nodeId_to_setting(settings: dict) -> None:
 
 def Check_status_node(
         log_id: int, 
-        data: dict,
-        settings: dict) -> None:
+        data: dict
+        ) -> None:
     
-    add_config_nodeId_to_setting(settings=settings)
+    # add_config_nodeId_to_setting(settings=settings)
 
     for node in data['nodes']:
         node_id = node['node_id']
         status = node['status']
 
-        if node_id in settings:
-            if settings[node_id] == {}:
-                settings[node_id]['status'] = ""
+        if node_id in config_toml['node_ids'].values():
+            log.debug(f"Node_id: {node_id}\nStatus: {status}\n")
 
-            if status != settings[node_id]['status']:
+            if status == "DEGRADED" or status == "DOWN":
+                log.info(f"Node ID: {node_id}\n"
+                    f"Status: {status}")
+
                 message = (f"Node ID: <code>{node_id}</code>\n"
                     f"I get status: <code>{status}</code>")
                 
                 send_message(log_id=log_id, message=message)
                 
-                settings[node_id]['status'] = status
